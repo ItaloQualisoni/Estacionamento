@@ -2,14 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cancela.model;
+package cancela.negocio;
 
 /**
  *
  * @author italo
  */
-public interface Cancela {
+public interface Codigo {
     
-    
+    public String getCodigo();
     
 }

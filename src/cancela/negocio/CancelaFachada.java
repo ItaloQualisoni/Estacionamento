@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cancela.model;
+package cancela.negocio;
 
 import cancela.dados.CancelaDAO;
 import cancela.dados.CancelaDAOException;
 import cancela.dados.CancelaDAOJavaDb;
-import cancela.services.Calculo;
-import cancela.services.CalculoSimples;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,12 +16,30 @@ import java.util.List;
  */
 public class CancelaFachada {
    private CancelaDAO dao;
+   private List<TicketListener> listeners;
 
    public CancelaFachada() throws CancelaDAOException {
         try {
             dao = new CancelaDAOJavaDb();
+            listeners = new ArrayList<TicketListener>();
         } catch (CancelaDAOException e) {
             throw new CancelaDAOException("Falha de criação da fachada!", e);
+        }
+   }
+   public void addCadastroListener(TicketListener l) {
+        if(!listeners.contains(l)) {
+            listeners.add(l);
+        }
+    }
+    
+    public void removeCadastroListener(TicketListener l) {
+        listeners.remove(l);
+    }
+    
+    protected void fireElementoAdicionado(Ticket p) {
+        TicketEvent evt = new TicketEvent(this, p);
+        for(TicketListener l : listeners) {
+            l.elementoAdicionado(evt);
         }
     }
    public boolean adicionaTicket() throws CancelaDAOException{
@@ -42,6 +59,7 @@ public class CancelaFachada {
    public void liberaTicket(String codigo, double valorPago) throws CancelaDAOException{
        try {
           dao.liberaTicket(codigo, valorPago);
+          fireElementoAdicionado(dao.getTicketPorCodigo(new CodigoSimples(codigo)));
        } catch (CancelaDAOException e) {
              throw new CancelaDAOException("Falha para liberar o ticket", e);
        }

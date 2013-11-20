@@ -4,7 +4,7 @@
  */
 package cancela.services;
 
-import cancela.model.Ticket;
+import cancela.negocio.Ticket;
 import java.sql.Time;
 import java.util.Date;
 import java.util.GregorianCalendar;

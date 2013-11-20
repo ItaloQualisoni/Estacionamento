@@ -4,8 +4,8 @@
  */
 package cancela.dados;
 
-import cancela.model.Codigo;
-import cancela.model.Ticket;
+import cancela.negocio.Codigo;
+import cancela.negocio.Ticket;
 import java.util.List;
 
 /**

@@ -4,7 +4,7 @@
  */
 package cancela.services;
 
-import cancela.model.Codigo;
+import cancela.negocio.Codigo;
 
 
 /**

@@ -4,9 +4,9 @@
  */
 package cancela.dados;
 
-import cancela.model.Codigo;
-import cancela.model.CodigoSimples;
-import cancela.model.Ticket;
+import cancela.negocio.Codigo;
+import cancela.negocio.CodigoSimples;
+import cancela.negocio.Ticket;
 import cancela.services.Calculo;
 import cancela.services.CalculoSimples;
 import java.sql.*;
@@ -37,7 +37,7 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             
             stmt.setString(1, p.getCodigo().toString());
             
-            Timestamp data = cancela.model.ConverteDataSQL.getCurrentTimeStamp(p.getDate());
+            Timestamp data = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(p.getDate());
             
             stmt.setString(2, data.toString());
             
@@ -63,8 +63,8 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             Ticket p = null;
             if(resultado.next()) {
                 String data = resultado.getString("DATA");
-                Timestamp tm = cancela.model.ConverteDataSQL.getCurrentTimeStamp(data);
-                GregorianCalendar cal = cancela.model.ConverteDataSQL.getCurrentGregorianCalendar(tm);
+                Timestamp tm = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(data);
+                GregorianCalendar cal = cancela.negocio.ConverteDataSQL.getCurrentGregorianCalendar(tm);
                 int status = resultado.getInt("STATUS");
                 p = new Ticket(n, cal,status);
             }
@@ -85,8 +85,8 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             while(resultado.next()) {
                 String data = resultado.getString("DATA");
                 Codigo cod = new CodigoSimples(resultado.getString("CODIGO"));
-                Timestamp tm = cancela.model.ConverteDataSQL.getCurrentTimeStamp(data);
-                GregorianCalendar cal = cancela.model.ConverteDataSQL.getCurrentGregorianCalendar(tm);
+                Timestamp tm = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(data);
+                GregorianCalendar cal = cancela.negocio.ConverteDataSQL.getCurrentGregorianCalendar(tm);
                 int status = resultado.getInt("STATUS");
                 Ticket p = new Ticket(cod, cal,status);
                 lista.add(p);
@@ -131,8 +131,8 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             while(resultado.next()) {
                 String data = resultado.getString("DATA");
                 Codigo cod = new CodigoSimples(resultado.getString("CODIGO"));
-                Timestamp tm = cancela.model.ConverteDataSQL.getCurrentTimeStamp(data);
-                GregorianCalendar cal = cancela.model.ConverteDataSQL.getCurrentGregorianCalendar(tm);
+                Timestamp tm = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(data);
+                GregorianCalendar cal = cancela.negocio.ConverteDataSQL.getCurrentGregorianCalendar(tm);
                 int status = resultado.getInt("STATUS");
                 Ticket p = new Ticket(cod, cal,status);
                 lista.add(p);
@@ -155,8 +155,8 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             while(resultado.next()) {
                 String data = resultado.getString("DATA");
                 Codigo cod = new CodigoSimples(resultado.getString("CODIGO"));
-                Timestamp tm = cancela.model.ConverteDataSQL.getCurrentTimeStamp(data);
-                GregorianCalendar cal = cancela.model.ConverteDataSQL.getCurrentGregorianCalendar(tm);
+                Timestamp tm = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(data);
+                GregorianCalendar cal = cancela.negocio.ConverteDataSQL.getCurrentGregorianCalendar(tm);
                 int status = resultado.getInt("STATUS");
                 Ticket p = new Ticket(cod, cal,status);
                 lista.add(p);

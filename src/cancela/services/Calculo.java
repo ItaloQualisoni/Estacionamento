@@ -4,7 +4,7 @@
  */
 package cancela.services;
 
-import cancela.model.Ticket;
+import cancela.negocio.Ticket;
 
 /**
  *

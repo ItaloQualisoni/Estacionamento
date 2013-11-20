@@ -10,19 +10,15 @@
  */
 package cancela.view;
 
-import cancela.dados.CancelaDAO;
 import cancela.dados.CancelaDAOException;
-import cancela.dados.CancelaDAOJavaDb;
-import cancela.dados.CancelaDAOJavaDbGerencial;
-import cancela.model.CancelaFachada;
-import cancela.model.CodigoSimples;
-import cancela.model.Ticket;
+import cancela.negocio.CancelaFachada;
+import cancela.negocio.Ticket;
+import cancela.negocio.TicketEvent;
+import cancela.negocio.TicketListener;
 import cancela.services.Calculo;
 import cancela.services.CalculoSimples;
+import java.awt.event.ActionEvent;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @author italo
  */
-public class TicketFrame extends javax.swing.JFrame {
+public class TicketFrame extends javax.swing.JFrame implements TicketListener {
     private CancelaFachada fac;
     private Calculo cs;
     private Ticket ticket;
@@ -39,9 +35,11 @@ public class TicketFrame extends javax.swing.JFrame {
         cs = new CalculoSimples();
         fac = fachada;
         ticket = tick;
+        fac.addCadastroListener(this);
         initComponents();
-        initValues();
+        atualizaTela();
     }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -182,19 +180,15 @@ public class TicketFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void liberaTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_liberaTicketActionPerformed
-   try {
-       if (!fac.validaTicket(ticket.getCodigo().getCodigo())) {
-           fac.liberaTicket(ticket.getCodigo().getCodigo(),cs.calculaPreco(ticket));
-           this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
-       }   
-    codigoTicket.setText(ticket.getCodigo().getCodigo());
-    Timestamp ts = new Timestamp(ticket.getDate().getTimeInMillis());
-    dataTicket.setText(ts.toString());
-    statusTicket.setText(String.valueOf(ticket.getStatus()));
-    precoTicket.setText(String.valueOf(cs.calculaPreco(ticket)));
-   } catch (CancelaDAOException ex) {
-    Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
-   }
+    try {
+        if (!fac.validaTicket(ticket.getCodigo().getCodigo())) {
+            fac.liberaTicket(ticket.getCodigo().getCodigo(), cs.calculaPreco(ticket));
+            this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
+        }
+        atualizaTela();
+    } catch (CancelaDAOException ex) {
+        Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_liberaTicketActionPerformed
 
 private void codigoTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoTicketActionPerformed
@@ -207,72 +201,45 @@ private void dataTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void liberaTicketSemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_liberaTicketSemActionPerformed
 // TODO add your handling code here:
-       try {
-       if (!fac.validaTicket(ticket.getCodigo().getCodigo())) {
-           fac.liberaTicket(ticket.getCodigo().getCodigo(),0.0);
-           this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
-       }   
-    codigoTicket.setText(ticket.getCodigo().getCodigo());
-    Timestamp ts = new Timestamp(ticket.getDate().getTimeInMillis());
-    dataTicket.setText(ts.toString());
-    statusTicket.setText(String.valueOf(ticket.getStatus()));
-    precoTicket.setText(String.valueOf(cs.calculaPreco(ticket)));
-   } catch (CancelaDAOException ex) {
-    Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
-   }
+    try {
+        if (!fac.validaTicket(ticket.getCodigo().getCodigo())) {
+            fac.liberaTicket(ticket.getCodigo().getCodigo(), 0.0);
+            this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
+        }
+        atualizaTela();
+    } catch (CancelaDAOException ex) {
+        Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_liberaTicketSemActionPerformed
 
 private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraviadoTicketActionPerformed
 // TODO add your handling code here:
-       try {
-       if (!fac.validaTicket(ticket.getCodigo().getCodigo())) {
-           fac.liberaTicket(ticket.getCodigo().getCodigo(),CalculoSimples.precoExtraviado);
-           this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
-       }   
-    codigoTicket.setText(ticket.getCodigo().getCodigo());
-    Timestamp ts = new Timestamp(ticket.getDate().getTimeInMillis());
-    dataTicket.setText(ts.toString());
-    statusTicket.setText(String.valueOf(ticket.getStatus()));
-    precoTicket.setText(String.valueOf(cs.calculaPreco(ticket)));
-   } catch (CancelaDAOException ex) {
-    Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
-   }
+    try {
+        if (!fac.validaTicket(ticket.getCodigo().getCodigo())) {
+            fac.liberaTicket(ticket.getCodigo().getCodigo(), CalculoSimples.precoExtraviado);
+            this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
+        }
+        atualizaTela();
+    } catch (CancelaDAOException ex) {
+        Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_extraviadoTicketActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex)TicketFrame      java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)TicketFrame      java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)TicketFrame      java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)TicketFrame      java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
         /* Create and display the form */
         try {
             final CancelaFachada t = new CancelaFachada();
-            final Ticket teste = new Ticket(new CodigoSimples(),new GregorianCalendar(2013, 11, 13, 0, 0 ),1);
+            t.adicionaTicket();
+            t.adicionaTicket();
             t.adicionaTicket();
         java.awt.EventQueue.invokeLater(new Runnable() {
         @Override
         public void run() {
                     try {
-                       // new TicketFrame(teste,b).setVisible(true);
-                         new TicketFrame(new CancelaFachada(),t.getTodos().get(0)).setVisible(true);
-                          //new TicketFrame(teste,b2).setVisible(true);
+                         new TicketFrame(t,t.getTodos().get(0)).setVisible(true);
                     } catch (CancelaDAOException ex) {
                         Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -296,11 +263,33 @@ private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JLabel textoPadrao;
     // End of variables declaration//GEN-END:variables
 
-    private void initValues() throws CancelaDAOException {
-        codigoTicket.setText(ticket.getCodigo().getCodigo());
-        Timestamp ts = new Timestamp(ticket.getDate().getTimeInMillis());
-        dataTicket.setText(ts.toString());
-        statusTicket.setText(String.valueOf(ticket.getStatus())); 
-        precoTicket.setText(String.valueOf(cs.calculaPreco(ticket)));
+
+
+ 
+    
+    private void atualizaTela(){
+      codigoTicket.setText(ticket.getCodigo().getCodigo());
+      Timestamp ts = new Timestamp(ticket.getDate().getTimeInMillis());
+      dataTicket.setText(ts.toString());
+      statusTicket.setText(String.valueOf(ticket.getStatus()));
+      precoTicket.setText(String.valueOf(cs.calculaPreco(ticket)));   
     }
+    
+    @Override
+    public void elementoAdicionado(TicketEvent evt) {
+        try {
+            this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
+            atualizaTela();
+        } catch (CancelaDAOException ex) {
+            Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        System.out.println("ahasuehauehuahduahduahduiguyighdfihs");
+    }
+
+
+
 }
