@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class CancelaDAOJavaDb implements CancelaDAO{
 
-    private static CancelaDAOInstace ref;
+    public CancelaDAOInstace ref;
     
     public CancelaDAOJavaDb() throws CancelaDAOException{
         ref = CancelaDAOInstace.getInstance();

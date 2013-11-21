@@ -52,7 +52,6 @@ public class CancelaDAOInstace {
                     + ")";
             sta.executeUpdate(sql);
             sta.close();
-            con.close();
         } catch (SQLException ex) {
             throw new CancelaDAOException(ex.getMessage());
         }
@@ -68,7 +67,6 @@ public class CancelaDAOInstace {
             String sql = "DROP TABLE status";
             sta.executeUpdate(sql);
             sta.close();
-            con.close();
             System.out.println("Tabelas Dropadas");
         } catch (SQLException ex) {
             throw new CancelaDAOException(ex.getMessage());

@@ -18,15 +18,15 @@ import java.util.List;
  */
 public class CancelaDAOJavaDbGerencial extends CancelaDAOJavaDb implements CancelaDAOGerencial{
 
-    private CancelaDAOJavaDb normal;
+    
     public CancelaDAOJavaDbGerencial() throws CancelaDAOException{
-        normal = new CancelaDAOJavaDb();
+        super();
     }
     
     @Override
     public double totalRecebido(int ano, int mes,int dia) throws CancelaDAOException {
         try {
-            Connection con = CancelaDAOInstace.getInstance().getConnection();
+            Connection con = ref.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                     "SELECT SUM(PRECO) as total FROM ticket where "
                     + "DATA >= ? and "
@@ -48,7 +48,7 @@ public class CancelaDAOJavaDbGerencial extends CancelaDAOJavaDb implements Cance
     @Override
     public int numeroTicketsLiberadosSemPagamento(int ano, int mes,int dia) throws CancelaDAOException {
         try {
-            Connection con = CancelaDAOInstace.getInstance().getConnection();
+            Connection con = ref.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                     "SELECT COUNT(*) as total FROM ticket where "
                     + "DATA >= ? and "
@@ -68,7 +68,7 @@ public class CancelaDAOJavaDbGerencial extends CancelaDAOJavaDb implements Cance
     @Override
     public int numeroTicketsPagos(int ano, int mes, int dia) throws CancelaDAOException {
          try {
-            Connection con = CancelaDAOInstace.getInstance().getConnection();
+            Connection con = ref.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                     "SELECT COUNT(*) as total FROM ticket where "
                     + "DATA >= ? and "
@@ -88,37 +88,37 @@ public class CancelaDAOJavaDbGerencial extends CancelaDAOJavaDb implements Cance
     }
     @Override
     public boolean adicionar(Ticket p) throws CancelaDAOException {
-        return normal.adicionar(p);
+        return super.adicionar(p);
     }
 
     @Override
     public Ticket getTicketPorCodigo(Codigo n) throws CancelaDAOException {
-        return normal.getTicketPorCodigo(n);
+        return super.getTicketPorCodigo(n);
     }
     
     @Override
     public List<Ticket> getTodos() throws CancelaDAOException {
-        return normal.getTodos();
+        return super.getTodos();
     }
     
     @Override
     public boolean validaTicket(String c) throws CancelaDAOException {
-       return normal.validaTicket(c);
+       return super.validaTicket(c);
        
     }
 
     @Override
     public List<Ticket> getTodosExtraviados() throws CancelaDAOException {
-       return normal.getTodosExtraviados();
+       return super.getTodosExtraviados();
     }
 
     @Override
     public List<Ticket> getTodosNaoPagos() throws CancelaDAOException {
-       return normal.getTodosNaoPagos();
+       return super.getTodosNaoPagos();
     }
     @Override
     public void liberaTicket(String codigo, double valorPago) throws CancelaDAOException {
-       normal.liberaTicket(codigo, valorPago);
+       super.liberaTicket(codigo, valorPago);
     }
 
 }
