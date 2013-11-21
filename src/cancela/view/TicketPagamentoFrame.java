@@ -26,12 +26,12 @@ import java.util.logging.Logger;
  *
  * @author italo
  */
-public class TicketFrame extends javax.swing.JFrame implements TicketListener {
+public class TicketPagamentoFrame extends javax.swing.JFrame implements TicketListener {
     private CancelaFachada fac;
     private Calculo cs;
     private Ticket ticket;
     /** Creates new form MainFrame */
-    public TicketFrame(CancelaFachada fachada, Ticket tick) throws CancelaDAOException {
+    public TicketPagamentoFrame(CancelaFachada fachada, Ticket tick) throws CancelaDAOException {
         cs = new CalculoSimples();
         fac = fachada;
         ticket = tick;
@@ -62,7 +62,7 @@ public class TicketFrame extends javax.swing.JFrame implements TicketListener {
         extraviadoTicket = new java.awt.Button();
         textoPadrao = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         liberaTicket.setLabel("Libera Ticket");
         liberaTicket.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +187,7 @@ private void liberaTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
         atualizaTela();
     } catch (CancelaDAOException ex) {
-        Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(TicketPagamentoFrame.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_liberaTicketActionPerformed
 
@@ -208,7 +208,7 @@ private void liberaTicketSemActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
         atualizaTela();
     } catch (CancelaDAOException ex) {
-        Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(TicketPagamentoFrame.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_liberaTicketSemActionPerformed
 
@@ -221,7 +221,7 @@ private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//
         }
         atualizaTela();
     } catch (CancelaDAOException ex) {
-        Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(TicketPagamentoFrame.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_extraviadoTicketActionPerformed
 
@@ -232,16 +232,15 @@ private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//
         /* Create and display the form */
         try {
             final CancelaFachada t = new CancelaFachada();
-            t.adicionaTicket();
-            t.adicionaTicket();
-            t.adicionaTicket();
-        java.awt.EventQueue.invokeLater(new Runnable() {
+            final Ticket tt =  t.adicionaTicket(); 
+       java.awt.EventQueue.invokeLater(new Runnable() {
         @Override
         public void run() {
                     try {
-                         new TicketFrame(t,t.getTodos().get(0)).setVisible(true);
+                         new TicketPagamentoFrame(t,tt).setVisible(true);
+                         new TicketPagamentoFrame(t,tt).setVisible(true);
                     } catch (CancelaDAOException ex) {
-                        Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(TicketPagamentoFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
             }
         });
@@ -269,8 +268,7 @@ private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//
     
     private void atualizaTela(){
       codigoTicket.setText(ticket.getCodigo().getCodigo());
-      Timestamp ts = new Timestamp(ticket.getDate().getTimeInMillis());
-      dataTicket.setText(ts.toString());
+      dataTicket.setText(String.valueOf(new Timestamp(ticket.getDate().getTimeInMillis())));
       statusTicket.setText(String.valueOf(ticket.getStatus()));
       precoTicket.setText(String.valueOf(cs.calculaPreco(ticket)));   
     }
@@ -281,14 +279,16 @@ private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//
             this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
             atualizaTela();
         } catch (CancelaDAOException ex) {
-            Logger.getLogger(TicketFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TicketPagamentoFrame.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
 
     @Override
-    public void actionPerformed(ActionEvent arg0) {
-        System.out.println("ahasuehauehuahduahduahduiguyighdfihs");
+    public void actionPerformed(ActionEvent ae) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
+
 
 
 
