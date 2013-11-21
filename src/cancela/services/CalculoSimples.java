@@ -47,7 +47,6 @@ public class CalculoSimples implements Calculo {
            
                         if(system.getHours() == 2) { retorno = 50;} 
                         else if(horas == 0) {
-                              System.out.println(2);
                                 if(system.getMinutes()- tic.getMinutes()  <= 15){
                                     return retorno; 
                                 } 
