@@ -39,6 +39,8 @@ public class TicketMainFrame extends javax.swing.JFrame {
         gerenciaisButtons = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Trabalho de tecnicas");
+        setResizable(false);
 
         jLabel1.setText("Escolha a opção desejada");
 
