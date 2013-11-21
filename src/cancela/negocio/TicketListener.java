@@ -11,5 +11,5 @@ import java.awt.event.ActionListener;
  * @author italo
  */
 public interface TicketListener extends ActionListener {
-    void elementoAdicionado(TicketEvent evt);   
+    void elementoAlterado(TicketEvent evt);   
 }

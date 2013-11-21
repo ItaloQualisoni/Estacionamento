@@ -6,6 +6,7 @@ package cancela.view;
 
 import cancela.dados.CancelaDAOException;
 import cancela.negocio.CancelaFachada;
+import cancela.negocio.CancelaFachadaGerencial;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -101,6 +102,15 @@ public class TicketMainFrame extends javax.swing.JFrame {
 
     private void gerenciaisButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciaisButtonsActionPerformed
         // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new GerencialTicket(new CancelaFachadaGerencial()).setVisible(true);
+                } catch (CancelaDAOException ex) {
+                    Logger.getLogger(TicketMainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }//GEN-LAST:event_gerenciaisButtonsActionPerformed
 
     private void geraButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geraButtonActionPerformed

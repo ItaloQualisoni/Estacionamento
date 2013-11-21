@@ -4,23 +4,21 @@
  */
 package cancela.dados;
 
-import cancela.negocio.Codigo;
-import cancela.negocio.Ticket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
  * @author italo
  */
-public class CancelaDAOJavaDbGerencial extends CancelaDAOJavaDb implements CancelaDAOGerencial{
+public class CancelaDAOJavaDbGerencial implements CancelaDAOGerencial{
 
+    public CancelaDAOInstace ref;
     
     public CancelaDAOJavaDbGerencial() throws CancelaDAOException{
-        super();
+         ref = CancelaDAOInstace.getInstance();
     }
     
     @Override
@@ -86,39 +84,4 @@ public class CancelaDAOJavaDbGerencial extends CancelaDAOJavaDb implements Cance
             throw new CancelaDAOException("Falha ao buscar.", ex);
         }
     }
-    @Override
-    public boolean adicionar(Ticket p) throws CancelaDAOException {
-        return super.adicionar(p);
-    }
-
-    @Override
-    public Ticket getTicketPorCodigo(Codigo n) throws CancelaDAOException {
-        return super.getTicketPorCodigo(n);
-    }
-    
-    @Override
-    public List<Ticket> getTodos() throws CancelaDAOException {
-        return super.getTodos();
-    }
-    
-    @Override
-    public boolean validaTicket(String c) throws CancelaDAOException {
-       return super.validaTicket(c);
-       
-    }
-
-    @Override
-    public List<Ticket> getTodosExtraviados() throws CancelaDAOException {
-       return super.getTodosExtraviados();
-    }
-
-    @Override
-    public List<Ticket> getTodosNaoPagos() throws CancelaDAOException {
-       return super.getTodosNaoPagos();
-    }
-    @Override
-    public void liberaTicket(String codigo, double valorPago) throws CancelaDAOException {
-       super.liberaTicket(codigo, valorPago);
-    }
-
 }

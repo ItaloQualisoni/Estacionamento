@@ -262,10 +262,6 @@ private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JLabel textoPadrao;
     // End of variables declaration//GEN-END:variables
 
-
-
- 
-    
     private void atualizaTela(){
       codigoTicket.setText(ticket.getCodigo().getCodigo());
       dataTicket.setText(String.valueOf(new Timestamp(ticket.getDate().getTimeInMillis())));
@@ -274,7 +270,7 @@ private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//
     }
     
     @Override
-    public void elementoAdicionado(TicketEvent evt) {
+    public void elementoAlterado(TicketEvent evt) {
         try {
             this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
             atualizaTela();
@@ -287,9 +283,5 @@ private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//
     public void actionPerformed(ActionEvent ae) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-
-
-
 
 }

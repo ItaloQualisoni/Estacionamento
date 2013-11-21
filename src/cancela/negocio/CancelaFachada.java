@@ -7,7 +7,6 @@ package cancela.negocio;
 import cancela.dados.CancelaDAO;
 import cancela.dados.CancelaDAOException;
 import cancela.dados.CancelaDAOJavaDb;
-import cancela.dados.CancelaDAOJavaDbGerencial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,16 +36,17 @@ public class CancelaFachada {
         listeners.remove(l);
     }
     
-    protected void fireElementoAdicionado(Ticket p) {
+    protected void fireElementoAlterado(Ticket p) {
         TicketEvent evt = new TicketEvent(this, p);
         for(TicketListener l : listeners) {
-            l.elementoAdicionado(evt);
+            l.elementoAlterado(evt);
         }
     }
    public Ticket adicionaTicket() throws CancelaDAOException{
        try {
            Ticket retorno = new Ticket(new CodigoSimples());
            dao.adicionar(retorno);
+           fireElementoAlterado(retorno);
            return retorno;
        } catch (CancelaDAOException e) {
              throw new CancelaDAOException("Falha para adiciona o ticket", e);
@@ -62,7 +62,7 @@ public class CancelaFachada {
    public void liberaTicket(String codigo, double valorPago) throws CancelaDAOException{
        try {
           dao.liberaTicket(codigo, valorPago);
-          fireElementoAdicionado(dao.getTicketPorCodigo(new CodigoSimples(codigo)));
+          fireElementoAlterado(dao.getTicketPorCodigo(new CodigoSimples(codigo)));
        } catch (CancelaDAOException e) {
              throw new CancelaDAOException("Falha para liberar o ticket", e);
        }
