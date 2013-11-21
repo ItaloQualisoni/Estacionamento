@@ -7,6 +7,7 @@ package cancela.negocio;
 import cancela.dados.CancelaDAO;
 import cancela.dados.CancelaDAOException;
 import cancela.dados.CancelaDAOJavaDb;
+import cancela.dados.CancelaDAOJavaDbGerencial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +43,11 @@ public class CancelaFachada {
             l.elementoAdicionado(evt);
         }
     }
-   public boolean adicionaTicket() throws CancelaDAOException{
+   public Ticket adicionaTicket() throws CancelaDAOException{
        try {
-          return dao.adicionar(new Ticket(new CodigoSimples()));
+           Ticket retorno = new Ticket(new CodigoSimples());
+           dao.adicionar(retorno);
+           return retorno;
        } catch (CancelaDAOException e) {
              throw new CancelaDAOException("Falha para adiciona o ticket", e);
        }
