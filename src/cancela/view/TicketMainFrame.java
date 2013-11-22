@@ -98,11 +98,18 @@ public class TicketMainFrame extends javax.swing.JFrame {
 
     private void buscaTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaTicketActionPerformed
         // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new TicketBuscaFrame(fac).setVisible(true);
+            }
+        });
     }//GEN-LAST:event_buscaTicketActionPerformed
 
     private void gerenciaisButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciaisButtonsActionPerformed
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new GerencialTicket(new CancelaFachadaGerencial()).setVisible(true);

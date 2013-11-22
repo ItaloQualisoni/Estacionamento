@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Thu Nov 21 02:30:34 BRST 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0142-78ec-805d-00000163c3d0 
+Thu Nov 21 23:53:13 BRST 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0142-7d82-c946-000001651aa8 
 on database directory /home/italo/Desktop/GitHub/Estacionamento/derbyDB  with class loader sun.misc.Launcher$AppClassLoader@5284e9 
 Loaded from file:/home/italo/Desktop/GitHub/Estacionamento/lib/derby.jar
 java.vendor=Oracle Corporation
