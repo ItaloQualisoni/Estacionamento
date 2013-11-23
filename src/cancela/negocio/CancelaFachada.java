@@ -40,7 +40,6 @@ public class CancelaFachada {
         TicketEvent evt = new TicketEvent(this, p);
         for(TicketListener l : listeners) {
             l.elementoAlterado(evt);
-            System.out.println("Disparando evento de mudança!!");
         }
     }
    public Ticket adicionaTicket() throws CancelaDAOException{

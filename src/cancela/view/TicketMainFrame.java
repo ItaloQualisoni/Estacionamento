@@ -86,11 +86,11 @@ public class TicketMainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(geraButton)
-                .addGap(26, 26, 26)
+                .addGap(36, 36, 36)
                 .addComponent(buscaTicket)
-                .addGap(26, 26, 26)
+                .addGap(30, 30, 30)
                 .addComponent(gerenciaisButtons)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();
