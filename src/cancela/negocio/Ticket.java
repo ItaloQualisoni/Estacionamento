@@ -71,7 +71,7 @@ public class Ticket {
     @Override
     public String toString() {
         Timestamp ts = new Timestamp(date.getTimeInMillis());
-        return "Ticket codigo: " + codigo.getCodigo() + " Hora:" + ts.toString()+ " Status " + status ;
+        return "Ticket codigo: " + codigo.getCodigo();
     }
 
     public int getStatus() {

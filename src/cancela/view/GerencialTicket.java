@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -242,6 +243,10 @@ public class GerencialTicket extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if (time == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione uma data para pesquisar");
+            return;
+        }
         Calendar cal = Calendar.getInstance();
         cal.setTime(time);
         int day = cal.get(Calendar.DAY_OF_MONTH);

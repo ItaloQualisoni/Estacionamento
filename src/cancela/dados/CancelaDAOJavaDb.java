@@ -13,6 +13,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -182,4 +184,21 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             throw new CancelaDAOException(ex.getMessage());
         }
     }
+
+    @Override
+    public void liberaTicketExtraviado(String codigo) {
+        try {       
+            Connection con = ref.getConnection();
+            PreparedStatement stmt = con.prepareStatement(
+                    "UPDATE TICKET SET STATUS = 0 WHERE CODIGO = ?");
+            stmt.setString(1, codigo);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CancelaDAOJavaDb.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
+
+
 }

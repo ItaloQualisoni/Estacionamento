@@ -40,6 +40,7 @@ public class CancelaFachada {
         TicketEvent evt = new TicketEvent(this, p);
         for(TicketListener l : listeners) {
             l.elementoAlterado(evt);
+            System.out.println("Disparando evento de mudança!!");
         }
     }
    public Ticket adicionaTicket() throws CancelaDAOException{
@@ -62,6 +63,14 @@ public class CancelaFachada {
    public void liberaTicket(String codigo, double valorPago) throws CancelaDAOException{
        try {
           dao.liberaTicket(codigo, valorPago);
+          fireElementoAlterado(dao.getTicketPorCodigo(new CodigoSimples(codigo)));
+       } catch (CancelaDAOException e) {
+             throw new CancelaDAOException("Falha para liberar o ticket", e);
+       }
+   }
+   public void liberaTicketExtraviado(String codigo) throws CancelaDAOException{
+       try {
+          dao.liberaTicketExtraviado(codigo);
           fireElementoAlterado(dao.getTicketPorCodigo(new CodigoSimples(codigo)));
        } catch (CancelaDAOException e) {
              throw new CancelaDAOException("Falha para liberar o ticket", e);

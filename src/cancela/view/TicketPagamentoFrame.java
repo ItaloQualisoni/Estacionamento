@@ -214,15 +214,7 @@ private void liberaTicketSemActionPerformed(java.awt.event.ActionEvent evt) {//G
 
 private void extraviadoTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraviadoTicketActionPerformed
 // TODO add your handling code here:
-    try {
-        if (!fac.validaTicket(ticket.getCodigo().getCodigo())) {
-            fac.liberaTicket(ticket.getCodigo().getCodigo(), CalculoSimples.precoExtraviado);
-            this.ticket = fac.getTicketPorCodigo(ticket.getCodigo());
-        }
-        atualizaTela();
-    } catch (CancelaDAOException ex) {
-        Logger.getLogger(TicketPagamentoFrame.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    throw new UnsupportedOperationException("Not supported yet.");
 }//GEN-LAST:event_extraviadoTicketActionPerformed
 
    

@@ -6,19 +6,22 @@ package cancela.view;
 
 import cancela.dados.CancelaDAOException;
 import cancela.negocio.CancelaFachada;
+import cancela.negocio.CodigoSimples;
 import cancela.negocio.Ticket;
+import cancela.negocio.TicketEvent;
+import cancela.negocio.TicketListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JFrame;
 
 /**
  *
  * @author 12104861
  */
-public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListener  {
+public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListener,TicketListener  {
 
     /**
      * Creates new form TicketBuscaFrame
@@ -26,6 +29,7 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
     public CancelaFachada fac;
     public TicketBuscaFrame(CancelaFachada fachada) {
         this.fac = fachada;
+        this.fac.addCadastroListener(this);
         initComponents();
         setJlist();
     }
@@ -184,18 +188,23 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
 
     private void bucarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bucarButtonActionPerformed
         // TODO add your handling code here:
-        
-        if (todosOptions.isSelected()) {
-            try {
-            jList1.setListData(fac.getTodos().toArray());
+        validaOpcao();
+    }//GEN-LAST:event_bucarButtonActionPerformed
+    public void validaOpcao() {
+        try {
+            if (todosOptions.isSelected()) {
+                jList1.setListData(fac.getTodos().toArray());
+            } else if (naoPagoOption.isSelected()) {
+                jList1.setListData(fac.getTodosNaoPagos().toArray());
+            } else if (porCodigoOption.isSelected()) {
+                Ticket[] data = new Ticket[1];
+                data[0] = fac.getTicketPorCodigo(new CodigoSimples(codigoField.getText()));
+                jList1.setListData(data);
+            }
         } catch (CancelaDAOException ex) {
             Logger.getLogger(TicketBuscaFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-            
-        }
-    }//GEN-LAST:event_bucarButtonActionPerformed
-    
+    }
     
     /**
      * @param args the command line arguments
@@ -224,7 +233,8 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
         public int getSize() { return strings.length; }
         @Override
         public Object getElementAt(int i) { return strings[i];}
-        });    
+        });
+    
     jList1.addMouseListener(this);
     }
 
@@ -258,5 +268,15 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
 
     @Override
     public void mouseExited(MouseEvent me) {
+    }
+
+    @Override
+    public void elementoAlterado(TicketEvent evt) {
+        validaOpcao();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
