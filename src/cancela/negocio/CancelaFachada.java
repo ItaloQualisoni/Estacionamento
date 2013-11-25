@@ -104,6 +104,13 @@ public class CancelaFachada {
              throw new CancelaDAOException("Falha para validar o ticket", e);
        }
    }
+   public String getStatusDescricao(int status) throws CancelaDAOException{
+       try {
+          return dao.getStatus(status);
+       } catch (CancelaDAOException e) {
+             throw new CancelaDAOException("Falha para validar o ticket", e);
+       }
+   }
    public List<Ticket> getTodosPagos() throws CancelaDAOException{
        /*IMPLEMENTAR*/
        return null;

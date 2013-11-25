@@ -20,5 +20,6 @@ public interface CancelaDAO {
     List<Ticket> getTodos() throws CancelaDAOException;
     boolean validaTicket(String c) throws CancelaDAOException;
     void liberaTicket(String c , double valorPago) throws CancelaDAOException;
-    public void liberaTicketExtraviado(String codigo);
+    void liberaTicketExtraviado(String codigo) throws CancelaDAOException;
+    String getStatus(int status) throws CancelaDAOException;
 }

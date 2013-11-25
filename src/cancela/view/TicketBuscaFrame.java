@@ -15,7 +15,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 
 /**
  *
@@ -44,6 +43,7 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jSplitPane1 = new javax.swing.JSplitPane();
         informaCodigoPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         codigoField = new javax.swing.JTextField();
@@ -53,6 +53,7 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
         naoPagoOption = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         bucarButton = new javax.swing.JButton();
+        extraviadosButton = new javax.swing.JRadioButton();
         resultadoPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -76,7 +77,7 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         informaCodigoPanelLayout.setVerticalGroup(
             informaCodigoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,6 +108,9 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
             }
         });
 
+        buttonGroup1.add(extraviadosButton);
+        extraviadosButton.setText("Extraviados");
+
         javax.swing.GroupLayout optionsPanelLayout = new javax.swing.GroupLayout(optionsPanel);
         optionsPanel.setLayout(optionsPanelLayout);
         optionsPanelLayout.setHorizontalGroup(
@@ -116,14 +120,16 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
                 .addGroup(optionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(optionsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(optionsPanelLayout.createSequentialGroup()
                         .addComponent(porCodigoOption)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(todosOptions)
                         .addGap(18, 18, 18)
                         .addComponent(naoPagoOption)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(extraviadosButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addComponent(bucarButton)
                         .addGap(34, 34, 34))))
         );
@@ -136,7 +142,8 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
                     .addComponent(porCodigoOption)
                     .addComponent(todosOptions)
                     .addComponent(naoPagoOption)
-                    .addComponent(bucarButton))
+                    .addComponent(bucarButton)
+                    .addComponent(extraviadosButton))
                 .addContainerGap())
         );
 
@@ -155,7 +162,7 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
             resultadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultadoPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,6 +203,8 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
                 jList1.setListData(fac.getTodos().toArray());
             } else if (naoPagoOption.isSelected()) {
                 jList1.setListData(fac.getTodosNaoPagos().toArray());
+            }else if (extraviadosButton.isSelected()) {
+                jList1.setListData(fac.getTodosExtraviados().toArray());
             } else if (porCodigoOption.isSelected()) {
                 Ticket[] data = new Ticket[1];
                 data[0] = fac.getTicketPorCodigo(new CodigoSimples(codigoField.getText()));
@@ -214,11 +223,13 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
     private javax.swing.JButton bucarButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField codigoField;
+    private javax.swing.JRadioButton extraviadosButton;
     private javax.swing.JPanel informaCodigoPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JRadioButton naoPagoOption;
     private javax.swing.JPanel optionsPanel;
     private javax.swing.JRadioButton porCodigoOption;
@@ -246,9 +257,9 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
         @Override
         public void run() {
                     try {
-                         new TicketPagamentoFrame(fac,(Ticket)jList1.getSelectedValue()).setVisible(true);
+                         new TicketPagamentoFramev2(fac,(Ticket)jList1.getSelectedValue()).setVisible(true);
                     } catch (CancelaDAOException ex) {
-                        Logger.getLogger(TicketPagamentoFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(TicketPagamentoFramev2.class.getName()).log(Level.SEVERE, null, ex);
                     }
             }
         });

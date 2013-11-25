@@ -186,7 +186,7 @@ public class CancelaDAOJavaDb implements CancelaDAO{
     }
 
     @Override
-    public void liberaTicketExtraviado(String codigo) {
+    public void liberaTicketExtraviado(String codigo) throws CancelaDAOException  {
         try {       
             Connection con = ref.getConnection();
             PreparedStatement stmt = con.prepareStatement(
@@ -195,9 +195,36 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(CancelaDAOJavaDb.class.getName()).log(Level.SEVERE, null, ex);
+            throw new CancelaDAOException(ex.getMessage());
         }
        
+    }
+
+    /**
+     *
+     * @param status
+     * @return
+     * @throws CancelaDAOException
+     */
+    @Override
+    public String getStatus(int status) throws CancelaDAOException 
+    {
+    try {
+            Connection con = ref.getConnection();
+            PreparedStatement stmt = con.prepareStatement(
+                    "SELECT DESCRICAO FROM status WHERE STATUS=?"
+                    );
+            stmt.setInt(1,status);
+            ResultSet resultado = stmt.executeQuery();
+            if(resultado.next()) {
+                String result = resultado.getString("DESCRICAO");
+                return result;
+            }
+            stmt.close();
+            return "Status invalido";
+        } catch (SQLException ex) {
+            throw new CancelaDAOException("Falha ao buscar.", ex);
+        }
     }
 
 
