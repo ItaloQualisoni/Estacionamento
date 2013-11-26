@@ -13,14 +13,9 @@ import java.util.GregorianCalendar;
  * @author italo
  */
 public class CalculoSimples implements Calculo {
-    public final static Time fechaEstacionamento = new Time(2,0,0);
-    public final static Time abreEstacionamento = new Time(8,0,0);
-    public final static double precoExtraviado = 50.00;
-   
-    
+    public final static double precoExtraviado = 50.00;    
     
     @Override
-    
    public double calculaPreco(Ticket ticket){ 
         //Ticket extraviado
         if(ticket.getStatus() == 0) { return precoExtraviado; }
@@ -32,7 +27,6 @@ public class CalculoSimples implements Calculo {
         Date tic = ticket.getDate().getTime(); 
         int control; 
         //caso tenha extraviado o ticket
-        
         //uma pessoa pode ter entrado no ultimo dia do mes e saido no primeiro dia de outro mes... 
         if(tic.getMonth() < system.getMonth()) {
             control = (aux.getActualMaximum(tic.getMonth()) + system.getDay()) - tic.getDay();          

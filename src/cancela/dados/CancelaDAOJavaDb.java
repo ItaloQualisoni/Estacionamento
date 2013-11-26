@@ -13,8 +13,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +37,7 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             
             stmt.setString(1, p.getCodigo().toString());
             
-            Timestamp data = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(p.getDate());
+            Timestamp data = new Timestamp(p.getDate().getTimeInMillis());
             
             stmt.setString(2, data.toString());
             
@@ -64,9 +62,9 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             ResultSet resultado = stmt.executeQuery();
             Ticket p = null;
             if(resultado.next()) {
-                String data = resultado.getString("DATA");
-                Timestamp tm = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(data);
-                GregorianCalendar cal = cancela.negocio.ConverteDataSQL.getCurrentGregorianCalendar(tm);
+                Timestamp tm = resultado.getTimestamp("DATA");
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTimeInMillis(tm.getTime());
                 int status = resultado.getInt("STATUS");
                 p = new Ticket(n, cal,status);
             }
@@ -85,10 +83,10 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             ResultSet resultado = stmt.executeQuery("SELECT * FROM ticket");
             List<Ticket> lista = new ArrayList<Ticket>();
             while(resultado.next()) {
-                String data = resultado.getString("DATA");
+                Timestamp tm = resultado.getTimestamp("DATA");
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTimeInMillis(tm.getTime());
                 Codigo cod = new CodigoSimples(resultado.getString("CODIGO"));
-                Timestamp tm = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(data);
-                GregorianCalendar cal = cancela.negocio.ConverteDataSQL.getCurrentGregorianCalendar(tm);
                 int status = resultado.getInt("STATUS");
                 Ticket p = new Ticket(cod, cal,status);
                 lista.add(p);
@@ -131,10 +129,10 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             ResultSet resultado = stmt.executeQuery("SELECT * FROM ticket where STATUS = 0");
             List<Ticket> lista = new ArrayList<Ticket>();
             while(resultado.next()) {
-                String data = resultado.getString("DATA");
                 Codigo cod = new CodigoSimples(resultado.getString("CODIGO"));
-                Timestamp tm = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(data);
-                GregorianCalendar cal = cancela.negocio.ConverteDataSQL.getCurrentGregorianCalendar(tm);
+                Timestamp tm = resultado.getTimestamp("DATA");
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTimeInMillis(tm.getTime());
                 int status = resultado.getInt("STATUS");
                 Ticket p = new Ticket(cod, cal,status);
                 lista.add(p);
@@ -155,10 +153,10 @@ public class CancelaDAOJavaDb implements CancelaDAO{
             ResultSet resultado = stmt.executeQuery("SELECT * FROM ticket where STATUS = 1");
             List<Ticket> lista = new ArrayList<Ticket>();
             while(resultado.next()) {
-                String data = resultado.getString("DATA");
                 Codigo cod = new CodigoSimples(resultado.getString("CODIGO"));
-                Timestamp tm = cancela.negocio.ConverteDataSQL.getCurrentTimeStamp(data);
-                GregorianCalendar cal = cancela.negocio.ConverteDataSQL.getCurrentGregorianCalendar(tm);
+                Timestamp tm = resultado.getTimestamp("DATA");
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTimeInMillis(tm.getTime());
                 int status = resultado.getInt("STATUS");
                 Ticket p = new Ticket(cod, cal,status);
                 lista.add(p);

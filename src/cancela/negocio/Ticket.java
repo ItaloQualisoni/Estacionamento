@@ -16,21 +16,12 @@ public class Ticket {
     private GregorianCalendar date;
     private int status;
     
-    /*
-     *   STATUS 
-     * 0 - EXTRAVIADO
-     * 1 - NÃO PAGO
-     * 2 - PAGO
-     */ 
-
-    
-    //USADO PARA RECONSTRUIR O OBJETO COM OS DADOS DO BANCO DE DADOS 
     public Ticket(Codigo codigo, GregorianCalendar date,int status) {
         this.codigo = codigo;
         this.date = date;
         this.status = status;
     }
-    //USADO PARA CONSTRUIR O OBJETO PELA PRIMEIRA VEZ!
+    
     public Ticket(Codigo codigo) {
         this.codigo = codigo;
         this.date = new GregorianCalendar();
@@ -70,7 +61,6 @@ public class Ticket {
 
     @Override
     public String toString() {
-        Timestamp ts = new Timestamp(date.getTimeInMillis());
         return "Ticket codigo: " + codigo.getCodigo();
     }
 

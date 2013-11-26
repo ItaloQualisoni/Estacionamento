@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 /**
  *
@@ -27,10 +28,10 @@ public class CancelaDAOJavaDbGerencial implements CancelaDAOGerencial{
             Connection con = ref.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                     "SELECT SUM(PRECO) as total FROM ticket where "
-                    + "DATA >= ? and "
+                    + "DATA <= ? and "
                     + "STATUS in (SELECT STATUS FROM status where DESCRICAO = \'Pago\' or DESCRICAO = \'Extraviado\')"
                     );
-            stmt.setString(1,ano+"-"+mes+"-"+dia+" 00:00:00.0");
+            stmt.setTimestamp(1,new Timestamp(ano - 1900, mes, dia, 0, 0, 0, 0));
             ResultSet resultado = stmt.executeQuery();
             resultado.next();
             double res = resultado.getDouble("total");
@@ -49,10 +50,10 @@ public class CancelaDAOJavaDbGerencial implements CancelaDAOGerencial{
             Connection con = ref.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                     "SELECT COUNT(*) as total FROM ticket where "
-                    + "DATA >= ? and "
+                    + "DATA <= ? and "
                     + "STATUS = (SELECT STATUS FROM status where DESCRICAO = \'Extraviado\')"
                     );
-            stmt.setString(1,ano+"-"+mes+"-"+dia+" 00:00:00.0");
+            stmt.setTimestamp(1,new Timestamp(ano - 1900, mes, dia, 0, 0, 0, 0));
             ResultSet resultado = stmt.executeQuery();
             resultado.next();
             int res = resultado.getInt("total");
@@ -69,10 +70,10 @@ public class CancelaDAOJavaDbGerencial implements CancelaDAOGerencial{
             Connection con = ref.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                     "SELECT COUNT(*) as total FROM ticket where "
-                    + "DATA >= ? and "
+                    + "DATA <= ? and "
                     + "STATUS = (SELECT STATUS FROM status where DESCRICAO = \'Pago\')"
                     );
-            stmt.setString(1,ano+"-"+mes+"-"+dia+" 00:00:00.0");
+            stmt.setTimestamp(1,new Timestamp(ano - 1900, mes, dia, 0, 0, 0, 0));
             ResultSet resultado = stmt.executeQuery();
             resultado.next();
             int res = resultado.getInt("total");

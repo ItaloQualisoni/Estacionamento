@@ -256,9 +256,9 @@ public class GerencialTicket extends javax.swing.JFrame {
             if(totalRecebido.isSelected()){
                     resultado.setText(String.valueOf(fac.totalRecebido(year,month,day)));   
             }else if (totalPago.isSelected()){
-                    resultado.setText(String.valueOf(fac.totalRecebido(year,month,day)));
+                    resultado.setText(String.valueOf(fac.numeroTicketPago(year,month,day)));
             }else if (totalSemPagamento.isSelected()) {
-                    resultado.setText(String.valueOf(fac.totalRecebido(year,month,day)));
+                    resultado.setText(String.valueOf(fac.numeroTicketsLiberadosSemPagamento(year,month,day)));
             }
         } catch (CancelaDAOException ex) {
                 Logger.getLogger(GerencialTicket.class.getName()).log(Level.SEVERE, null, ex);
