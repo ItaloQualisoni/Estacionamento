@@ -18,9 +18,9 @@ public interface CancelaDAO {
     List<Ticket> getTodosExtraviados() throws CancelaDAOException;
     List<Ticket> getTodosNaoPagos() throws CancelaDAOException;
     List<Ticket> getTodos() throws CancelaDAOException;
-    boolean validaTicket(String c) throws CancelaDAOException;
-    void liberaTicket(String c , double valorPago) throws CancelaDAOException;
-    void liberaTicketExtraviado(String codigo) throws CancelaDAOException;
+    boolean validaTicket(Codigo c) throws CancelaDAOException;
+    void liberaTicket(Codigo c , double valorPago) throws CancelaDAOException;
+    void liberaTicketExtraviado(Codigo codigo) throws CancelaDAOException;
     String getStatus(int status) throws CancelaDAOException;
     public List<Ticket> getTodosPagos() throws CancelaDAOException;
 

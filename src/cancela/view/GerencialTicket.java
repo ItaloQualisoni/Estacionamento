@@ -80,7 +80,7 @@ public class GerencialTicket extends javax.swing.JFrame{
         });
 
         buttonGroup1.add(totalSemPagamento);
-        totalSemPagamento.setText("Numero de tickets liberados sem pagamento");
+        totalSemPagamento.setText("Numero de tickets extraviados");
 
         javax.swing.GroupLayout opcoesLayout = new javax.swing.GroupLayout(opcoes);
         opcoes.setLayout(opcoesLayout);

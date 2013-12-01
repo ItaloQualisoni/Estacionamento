@@ -246,18 +246,18 @@ public class TicketPagamentoFramev2 extends javax.swing.JFrame implements Ticket
     private void liberaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_liberaButtonActionPerformed
         // TODO add your handling code here:
      try {
-        if (fac.validaTicket(ticket.getCodigo().getCodigo())) {
+        if (fac.validaTicket(ticket.getCodigo())) {
             JOptionPane.showMessageDialog(null, "Este ticket já esta liberado!");
-            return;   
+            return;
         }
         else if (liberaOption.isSelected()) {
-            fac.liberaTicket(ticket.getCodigo().getCodigo(), Double.valueOf(pagoField.getText()));
+            fac.liberaTicket(ticket.getCodigo(), Double.valueOf(pagoField.getText()));
         }
         else if (gratisOption.isSelected()) {
-            fac.liberaTicket(ticket.getCodigo().getCodigo(), 0.0);
+            fac.liberaTicket(ticket.getCodigo(), 0.0);
         }
         else if (extraviadoOption.isSelected()) {
-            fac.liberaTicketExtraviado(ticket.getCodigo().getCodigo());
+            fac.liberaTicketExtraviado(ticket.getCodigo());
         }
     } catch (CancelaDAOException ex) {
         Logger.getLogger(TicketPagamentoFramev2.class.getName()).log(Level.SEVERE, null, ex);

@@ -4,10 +4,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Bruno/Desktop/Técnicas/Estacionamento-master/src/cancela/negocio/CancelaFachadaGerencial.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Técnicas/Estacionamento-master/src/cancela/view/GerencialTicket.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Técnicas/Estacionamento-master/src/cancela/dados/CancelaDAOJavaDbGerencial.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Técnicas/Estacionamento-master/src/cancela/dados/CancelaDAOJavaDb.java</file>
+            <file>file:/home/italo/Área%20de%20Trabalho/Estacionamento/src/cancela/dados/CancelaDAOJavaDb.java</file>
+            <file>file:/home/italo/Área%20de%20Trabalho/Estacionamento/src/Main.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Wed Nov 27 21:17:57 BRST 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0142-9bda-ccaf-000002bfbbf8 
-on database directory /home/PORTOALEGRE/12104861/Downloads/Estacionamento-master/derbyDB  with class loader sun.misc.Launcher$AppClassLoader@579a19fd 
-Loaded from file:/home/PORTOALEGRE/12104861/Downloads/Estacionamento-master/lib/derby.jar
+Sun Dec 01 18:20:48 BRST 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0142-afd2-0db0-000001688268 
+on database directory /home/italo/Área de Trabalho/Estacionamento/derbyDB  with class loader sun.misc.Launcher$AppClassLoader@1941dc9 
+Loaded from file:/home/italo/%c3%81rea%20de%20Trabalho/Estacionamento/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_09-b30
-user.dir=/home/PORTOALEGRE/12104861/Downloads/Estacionamento-master
+java.runtime.version=1.7.0_25-b30
+user.dir=/home/italo/Área de Trabalho/Estacionamento
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

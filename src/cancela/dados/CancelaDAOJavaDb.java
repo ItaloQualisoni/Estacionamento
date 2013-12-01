@@ -99,7 +99,7 @@ public class CancelaDAOJavaDb implements CancelaDAO{
     }
 
     @Override
-    public boolean validaTicket(String c) throws CancelaDAOException {
+    public boolean validaTicket(Codigo c) throws CancelaDAOException {
       try {
            Calculo cs = new CalculoSimples();
            Connection con = ref.getConnection();
@@ -107,7 +107,7 @@ public class CancelaDAOJavaDb implements CancelaDAO{
                   "SELECT STATUS FROM Ticket "
                    + " WHERE CODIGO = ?"
                    );
-            stmt.setString(1, c);
+            stmt.setString(1, c.getCodigo());
             ResultSet resultado = stmt.executeQuery();
             boolean valida = false;
             if(resultado.next()) {
@@ -169,13 +169,13 @@ public class CancelaDAOJavaDb implements CancelaDAO{
     }
 
     @Override
-    public void liberaTicket(String codigo, double valorPago) throws CancelaDAOException {
+    public void liberaTicket(Codigo codigo, double valorPago) throws CancelaDAOException {
        try {
             Connection con = ref.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                   "UPDATE TICKET SET PRECO = ?, STATUS = 2 WHERE CODIGO = ?");
             stmt.setDouble(1, valorPago);
-            stmt.setString(2, codigo);
+            stmt.setString(2, codigo.getCodigo());
             stmt.executeUpdate();
             stmt.close();
        }catch (SQLException ex) {
@@ -184,12 +184,13 @@ public class CancelaDAOJavaDb implements CancelaDAO{
     }
 
     @Override
-    public void liberaTicketExtraviado(String codigo) throws CancelaDAOException  {
+    public void liberaTicketExtraviado(Codigo codigo) throws CancelaDAOException  {
         try {       
             Connection con = ref.getConnection();
             PreparedStatement stmt = con.prepareStatement(
-                    "UPDATE TICKET SET STATUS = 0 WHERE CODIGO = ?");
-            stmt.setString(1, codigo);
+                    "UPDATE TICKET SET STATUS = 0,PRECO = ? WHERE CODIGO = ?");
+            stmt.setDouble(1, CalculoSimples.precoExtraviado);
+            stmt.setString(2, codigo.getCodigo());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {

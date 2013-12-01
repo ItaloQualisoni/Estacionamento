@@ -53,14 +53,14 @@ public class CancelaFachada {
              throw new CancelaDAOException("Falha para adiciona o ticket", e);
        }
    }
-   public boolean validaTicket(String codigo) throws CancelaDAOException{
+   public boolean validaTicket(Codigo codigo) throws CancelaDAOException{
        try {
           return dao.validaTicket(codigo);
        } catch (CancelaDAOException e) {
              throw new CancelaDAOException("Falha para validar o ticket", e);
        }
    }
-   public void liberaTicket(String codigo, double valorPago) throws CancelaDAOException{
+   public void liberaTicket(Codigo codigo, double valorPago) throws CancelaDAOException{
        try {
           dao.liberaTicket(codigo, valorPago);
           fireElementoAlterado();
@@ -68,7 +68,7 @@ public class CancelaFachada {
              throw new CancelaDAOException("Falha para liberar o ticket", e);
        }
    }
-   public void liberaTicketExtraviado(String codigo) throws CancelaDAOException{
+   public void liberaTicketExtraviado(Codigo codigo) throws CancelaDAOException{
        try {
           dao.liberaTicketExtraviado(codigo);
           fireElementoAlterado();
