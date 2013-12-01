@@ -16,9 +16,10 @@ import cancela.dados.CancelaDAOJavaDbGerencial;
  */
 public class CancelaFachadaGerencial {
    private CancelaDAOGerencial dao;
-
-   public CancelaFachadaGerencial() throws CancelaDAOException {
+   private CancelaFachada can;
+   public CancelaFachadaGerencial(CancelaFachada cancela) throws CancelaDAOException {
         try {
+            can = cancela;
             dao = new CancelaDAOJavaDbGerencial();
         } catch (CancelaDAOException e) {
             throw new CancelaDAOException("Falha de criação da fachada gerencial!", e);
@@ -35,5 +36,11 @@ public class CancelaFachadaGerencial {
     public double totalRecebido(int ano, int mes, int dia) throws CancelaDAOException {
         return dao.totalRecebido(ano, mes, dia);
     }
+    public int liberaTodosTickets() throws CancelaDAOException {
+        int ret = dao.liberaTodosTickets();
+        can.fireElementoAlterado();
+        return ret;
+    }
+  
            
 }

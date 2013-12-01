@@ -10,14 +10,10 @@ import java.util.EventObject;
  * @author italo
  */
 public class TicketEvent extends EventObject {
-    public Ticket ticket;
 
-    public TicketEvent(Object source,Ticket ticket) {
+
+    public TicketEvent(Object source) {
         super(source);
-        this.ticket = ticket;
-    }
-    public Ticket getTicket(){
-        return this.ticket;
     }
 
 }

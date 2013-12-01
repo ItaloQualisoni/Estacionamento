@@ -31,22 +31,23 @@ public class CancelaFachada {
             listeners.add(l);
         }
     }
-    
     public void removeCadastroListener(TicketListener l) {
         listeners.remove(l);
     }
-    
-    protected void fireElementoAlterado(Ticket p) {
-        TicketEvent evt = new TicketEvent(this, p);
+
+    protected void fireElementoAlterado() {
+        TicketEvent evt = new TicketEvent(this);
         for(TicketListener l : listeners) {
             l.elementoAlterado(evt);
         }
     }
+
+    
    public Ticket adicionaTicket() throws CancelaDAOException{
        try {
            Ticket retorno = new Ticket(new CodigoSimples());
            dao.adicionar(retorno);
-           fireElementoAlterado(retorno);
+           fireElementoAlterado();
            return retorno;
        } catch (CancelaDAOException e) {
              throw new CancelaDAOException("Falha para adiciona o ticket", e);
@@ -62,7 +63,7 @@ public class CancelaFachada {
    public void liberaTicket(String codigo, double valorPago) throws CancelaDAOException{
        try {
           dao.liberaTicket(codigo, valorPago);
-          fireElementoAlterado(dao.getTicketPorCodigo(new CodigoSimples(codigo)));
+          fireElementoAlterado();
        } catch (CancelaDAOException e) {
              throw new CancelaDAOException("Falha para liberar o ticket", e);
        }
@@ -70,7 +71,7 @@ public class CancelaFachada {
    public void liberaTicketExtraviado(String codigo) throws CancelaDAOException{
        try {
           dao.liberaTicketExtraviado(codigo);
-          fireElementoAlterado(dao.getTicketPorCodigo(new CodigoSimples(codigo)));
+          fireElementoAlterado();
        } catch (CancelaDAOException e) {
              throw new CancelaDAOException("Falha para liberar o ticket", e);
        }
@@ -101,18 +102,21 @@ public class CancelaFachada {
        try {
           return dao.getTicketPorCodigo(codigo);
        } catch (CancelaDAOException e) {
-             throw new CancelaDAOException("Falha para validar o ticket", e);
+             throw new CancelaDAOException("Falha para buscar o ticket", e);
        }
    }
    public String getStatusDescricao(int status) throws CancelaDAOException{
        try {
           return dao.getStatus(status);
        } catch (CancelaDAOException e) {
-             throw new CancelaDAOException("Falha para validar o ticket", e);
+             throw new CancelaDAOException("Falha na busca da descrição do ticket", e);
        }
    }
    public List<Ticket> getTodosPagos() throws CancelaDAOException{
-       /*IMPLEMENTAR*/
-       return null;
+       try {
+          return dao.getTodosPagos();
+       } catch (CancelaDAOException e) {
+             throw new CancelaDAOException("Falha para buscar todos os tickets pagos", e);
+       }
    } 
 }

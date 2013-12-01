@@ -10,7 +10,6 @@ import cancela.dados.CancelaDAOException;
 import cancela.negocio.CancelaFachadaGerencial;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -21,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author italo
  */
-public class GerencialTicket extends javax.swing.JFrame {
+public class GerencialTicket extends javax.swing.JFrame{
 
     /**
      * Creates new form GerencialTicket
@@ -50,6 +49,7 @@ public class GerencialTicket extends javax.swing.JFrame {
         totalSemPagamento = new javax.swing.JRadioButton();
         botaoField = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         resultadoField = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         resultado = new javax.swing.JTextField();
@@ -111,20 +111,31 @@ public class GerencialTicket extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Libera Todos Tickets");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout botaoFieldLayout = new javax.swing.GroupLayout(botaoField);
         botaoField.setLayout(botaoFieldLayout);
         botaoFieldLayout.setHorizontalGroup(
             botaoFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botaoFieldLayout.createSequentialGroup()
-                .addGap(176, 176, 176)
+                .addGap(56, 56, 56)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83)
+                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         botaoFieldLayout.setVerticalGroup(
             botaoFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(botaoFieldLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botaoFieldLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(botaoFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -240,7 +251,7 @@ public class GerencialTicket extends javax.swing.JFrame {
     private void totalPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalPagoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_totalPagoActionPerformed
-
+  
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if (time == null) {
@@ -269,44 +280,18 @@ public class GerencialTicket extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCalendarButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GerencialTicket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GerencialTicket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GerencialTicket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GerencialTicket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+               // TODO add your handling code here:       
+       try {
+           JOptionPane.showMessageDialog(null, "Total de tickets liberados : " + String.valueOf(fac.liberaTodosTickets()));
+        } catch (CancelaDAOException ex) {
+                Logger.getLogger(GerencialTicket.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        //resultado.setText(String.valueOf(fac.liberaTodosTickets()));
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new GerencialTicket(new CancelaFachadaGerencial()).setVisible(true);
-                } catch (CancelaDAOException ex) {
-                    Logger.getLogger(GerencialTicket.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botaoField;
@@ -315,6 +300,7 @@ public class GerencialTicket extends javax.swing.JFrame {
     private javax.swing.JTextField date;
     private javax.swing.JPanel descricaoField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private net.sourceforge.jcalendarbutton.JCalendarButton jCalendarButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

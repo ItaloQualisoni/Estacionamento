@@ -22,4 +22,6 @@ public interface CancelaDAO {
     void liberaTicket(String c , double valorPago) throws CancelaDAOException;
     void liberaTicketExtraviado(String codigo) throws CancelaDAOException;
     String getStatus(int status) throws CancelaDAOException;
+    public List<Ticket> getTodosPagos() throws CancelaDAOException;
+
 }

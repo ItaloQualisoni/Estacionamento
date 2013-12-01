@@ -51,7 +51,7 @@ public class CancelaDAOJavaDbGerencial implements CancelaDAOGerencial{
             PreparedStatement stmt = con.prepareStatement(
                     "SELECT COUNT(*) as total FROM ticket where "
                     + "DATA <= ? and "
-                    + "STATUS = (SELECT STATUS FROM status where DESCRICAO = \'Extraviado\')"
+                    + "STATUS in (SELECT STATUS FROM status where DESCRICAO = \'Extraviado\')"
                     );
             stmt.setTimestamp(1,new Timestamp(ano - 1900, mes, dia, 0, 0, 0, 0));
             ResultSet resultado = stmt.executeQuery();
@@ -71,7 +71,7 @@ public class CancelaDAOJavaDbGerencial implements CancelaDAOGerencial{
             PreparedStatement stmt = con.prepareStatement(
                     "SELECT COUNT(*) as total FROM ticket where "
                     + "DATA <= ? and "
-                    + "STATUS = (SELECT STATUS FROM status where DESCRICAO = \'Pago\')"
+                    + "STATUS in (SELECT STATUS FROM status where DESCRICAO = \'Pago\')"
                     );
             stmt.setTimestamp(1,new Timestamp(ano - 1900, mes, dia, 0, 0, 0, 0));
             ResultSet resultado = stmt.executeQuery();
@@ -85,4 +85,20 @@ public class CancelaDAOJavaDbGerencial implements CancelaDAOGerencial{
             throw new CancelaDAOException("Falha ao buscar.", ex);
         }
     }
+    @Override
+    public int liberaTodosTickets() throws CancelaDAOException {
+        try {       
+            Connection con = ref.getConnection();
+            PreparedStatement stmt = con.prepareStatement(
+                                        "UPDATE TICKET SET STATUS = 2 WHERE STATUS in (SELECT STATUS FROM status where DESCRICAO = \'Nao pago\')");            
+            stmt.executeUpdate();
+            int total = stmt.getUpdateCount();
+            con.close();
+            stmt.close();
+            return total;
+        } catch (SQLException ex) {
+            throw new CancelaDAOException(ex.getMessage());
+        }
+    }
+
 }

@@ -126,7 +126,7 @@ public class CancelaDAOJavaDb implements CancelaDAO{
         try {
             Connection con = ref.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet resultado = stmt.executeQuery("SELECT * FROM ticket where STATUS = 0");
+            ResultSet resultado = stmt.executeQuery("SELECT * FROM ticket where STATUS in (SELECT STATUS FROM status where DESCRICAO = \'Extraviado\')");
             List<Ticket> lista = new ArrayList<Ticket>();
             while(resultado.next()) {
                 Codigo cod = new CodigoSimples(resultado.getString("CODIGO"));
@@ -150,7 +150,7 @@ public class CancelaDAOJavaDb implements CancelaDAO{
         try {
             Connection con = ref.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet resultado = stmt.executeQuery("SELECT * FROM ticket where STATUS = 1");
+            ResultSet resultado = stmt.executeQuery("SELECT * FROM ticket where STATUS in (SELECT STATUS FROM status where DESCRICAO = \'Nao pago\')");
             List<Ticket> lista = new ArrayList<Ticket>();
             while(resultado.next()) {
                 Codigo cod = new CodigoSimples(resultado.getString("CODIGO"));
@@ -195,15 +195,9 @@ public class CancelaDAOJavaDb implements CancelaDAO{
         } catch (SQLException ex) {
             throw new CancelaDAOException(ex.getMessage());
         }
-       
     }
 
-    /**
-     *
-     * @param status
-     * @return
-     * @throws CancelaDAOException
-     */
+
     @Override
     public String getStatus(int status) throws CancelaDAOException 
     {
@@ -225,5 +219,27 @@ public class CancelaDAOJavaDb implements CancelaDAO{
         }
     }
 
-
+    @Override
+    public List<Ticket> getTodosPagos() throws CancelaDAOException{
+        try {
+            Connection con = ref.getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet resultado = stmt.executeQuery("SELECT * FROM ticket where STATUS in (SELECT STATUS FROM status where DESCRICAO = \'Pago\')");
+            List<Ticket> lista = new ArrayList<Ticket>();
+            while(resultado.next()) {
+                Codigo cod = new CodigoSimples(resultado.getString("CODIGO"));
+                Timestamp tm = resultado.getTimestamp("DATA");
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTimeInMillis(tm.getTime());
+                int status = resultado.getInt("STATUS");
+                Ticket p = new Ticket(cod, cal,status);
+                lista.add(p);
+            }
+            stmt.close();
+            return lista;
+        } catch (SQLException ex) {
+            throw new CancelaDAOException("Falha ao buscar.", ex);
+        }  
+    }
+   
 }

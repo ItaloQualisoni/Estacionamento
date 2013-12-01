@@ -112,7 +112,7 @@ public class TicketMainFrame extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    new GerencialTicket(new CancelaFachadaGerencial()).setVisible(true);
+                    new GerencialTicket(new CancelaFachadaGerencial(fac)).setVisible(true);
                 } catch (CancelaDAOException ex) {
                     Logger.getLogger(TicketMainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }

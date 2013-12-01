@@ -12,4 +12,6 @@ public interface CancelaDAOGerencial{
     double totalRecebido(int ano, int mes,int dia)throws CancelaDAOException;
     int numeroTicketsPagos(int ano, int mes,int dia)throws CancelaDAOException;
     int numeroTicketsLiberadosSemPagamento(int ano, int mes,int dia)throws CancelaDAOException;
+    int liberaTodosTickets()throws CancelaDAOException;
+
 }

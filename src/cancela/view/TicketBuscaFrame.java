@@ -54,6 +54,7 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
         jLabel2 = new javax.swing.JLabel();
         bucarButton = new javax.swing.JButton();
         extraviadosButton = new javax.swing.JRadioButton();
+        pagosButton = new javax.swing.JRadioButton();
         resultadoPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -92,9 +93,19 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
         buttonGroup1.add(porCodigoOption);
         porCodigoOption.setSelected(true);
         porCodigoOption.setText("Por codigo");
+        porCodigoOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                porCodigoOptionActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(todosOptions);
         todosOptions.setText("Todos");
+        todosOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                todosOptionsActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(naoPagoOption);
         naoPagoOption.setText("Não Pagos");
@@ -110,6 +121,14 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
 
         buttonGroup1.add(extraviadosButton);
         extraviadosButton.setText("Extraviados");
+        extraviadosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                extraviadosButtonActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(pagosButton);
+        pagosButton.setText("Pagos");
 
         javax.swing.GroupLayout optionsPanelLayout = new javax.swing.GroupLayout(optionsPanel);
         optionsPanel.setLayout(optionsPanelLayout);
@@ -129,7 +148,9 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
                         .addComponent(naoPagoOption)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(extraviadosButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pagosButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(bucarButton)
                         .addGap(34, 34, 34))))
         );
@@ -143,7 +164,8 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
                     .addComponent(todosOptions)
                     .addComponent(naoPagoOption)
                     .addComponent(bucarButton)
-                    .addComponent(extraviadosButton))
+                    .addComponent(extraviadosButton)
+                    .addComponent(pagosButton))
                 .addContainerGap())
         );
 
@@ -162,7 +184,7 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
             resultadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultadoPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,17 +216,32 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
     }//GEN-LAST:event_codigoFieldActionPerformed
 
     private void bucarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bucarButtonActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         validaOpcao();
     }//GEN-LAST:event_bucarButtonActionPerformed
+
+    private void todosOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todosOptionsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_todosOptionsActionPerformed
+
+    private void porCodigoOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porCodigoOptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_porCodigoOptionActionPerformed
+
+    private void extraviadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extraviadosButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_extraviadosButtonActionPerformed
     public void validaOpcao() {
-        try {
-            if (todosOptions.isSelected()) {
+        try {            
+            if (todosOptions.isSelected()) { 
                 jList1.setListData(fac.getTodos().toArray());
             } else if (naoPagoOption.isSelected()) {
                 jList1.setListData(fac.getTodosNaoPagos().toArray());
             }else if (extraviadosButton.isSelected()) {
                 jList1.setListData(fac.getTodosExtraviados().toArray());
+            }else if (pagosButton.isSelected()) {
+                jList1.setListData(fac.getTodosPagos().toArray());
+                System.out.println(fac.getTodosPagos().toArray());
             } else if (porCodigoOption.isSelected()) {
                 Ticket[] data = new Ticket[1];
                 data[0] = fac.getTicketPorCodigo(new CodigoSimples(codigoField.getText()));
@@ -215,9 +252,6 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
         }
     }
     
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bucarButton;
@@ -232,6 +266,7 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JRadioButton naoPagoOption;
     private javax.swing.JPanel optionsPanel;
+    private javax.swing.JRadioButton pagosButton;
     private javax.swing.JRadioButton porCodigoOption;
     private javax.swing.JPanel resultadoPanel;
     private javax.swing.JRadioButton todosOptions;
@@ -251,8 +286,9 @@ public class TicketBuscaFrame extends javax.swing.JFrame implements MouseListene
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        if(jList1.isSelectionEmpty())
+        if(jList1.isSelectionEmpty()) {
             return;
+        }
         java.awt.EventQueue.invokeLater(new Runnable() {
         @Override
         public void run() {
